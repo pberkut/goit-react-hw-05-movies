@@ -11,7 +11,7 @@ const getTrendingToday = async () => {
     params: axiosParams,
   });
 
-  return response.data;
+  return response.data.results;
 };
 
 const getSearch = async query => {
@@ -22,7 +22,7 @@ const getSearch = async query => {
     },
   });
 
-  return response.data;
+  return response.data.results;
 };
 
 const getDetails = async movieId => {
@@ -38,7 +38,7 @@ const getCredits = async movieId => {
     params: axiosParams,
   });
 
-  return response.data;
+  return response.data.cast;
 };
 
 const getReviews = async movieId => {

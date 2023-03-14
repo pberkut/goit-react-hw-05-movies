@@ -1,18 +1,44 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { getCredits } from 'services/themoviedb-API';
 
 export const Cast = () => {
+  const [casts, setCasts] = useState([]);
+
+  const { movieId } = useParams();
+
   useEffect(() => {
     const fetchCreditsMovie = async movieId => {
       try {
         const creditsMovie = await getCredits(movieId);
-        console.log(creditsMovie);
+        const casts = creditsMovie.map(({ name, character, profile_path }) => ({
+          name,
+          character,
+          profile_path,
+        }));
+        setCasts(casts);
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchCreditsMovie(739405);
-  }, []);
-  return <div>MovieCredits - Cast</div>;
+    fetchCreditsMovie(movieId);
+  }, [movieId]);
+
+  console.log(casts);
+  return (
+    <div>
+      MovieCredits - Cast
+      <ul>
+        {casts &&
+          casts.map(({ name, character, profile_path }) => (
+            <li key={name}>
+              <p>Name: {name}</p>
+              <img src={`${profile_path}`} alt={name} />
+              <p>Character: {character}</p>
+            </li>
+          ))}
+      </ul>
+    </div>
+  );
 };
