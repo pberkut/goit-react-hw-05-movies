@@ -1,3 +1,3 @@
-export const Home = () => {
+export const TrendingToday = () => {
   return <div>Trending today</div>;
 };
