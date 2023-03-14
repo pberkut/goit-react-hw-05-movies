@@ -8,13 +8,17 @@ export const App = () => {
       <ul>
         <li>
           <NavLink to="/">Home </NavLink>
-          <NavLink to="/Movies">Movies</NavLink>
         </li>
-        <li></li>
+        <li>
+          <NavLink to="/movies">Movies</NavLink>
+        </li>
       </ul>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Movies" element={<Movies />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/movies/:movieId" element={<Movies />} />
+        <Route path="/movies/:movieId/cast" element={<Movies />} />
+        <Route path="/movies/:movieId/reviews" element={<Movies />} />
       </Routes>
     </div>
   );
