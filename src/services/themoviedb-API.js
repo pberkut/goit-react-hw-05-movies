@@ -46,7 +46,7 @@ const getReviews = async movieId => {
     params: axiosParams,
   });
 
-  return response.data;
+  return response.data.results;
 };
 
 export { getTrendingToday, getSearch, getDetails, getCredits, getReviews };

@@ -34,7 +34,10 @@ export const Cast = () => {
           casts.map(({ name, character, profile_path }) => (
             <li key={name}>
               <p>Name: {name}</p>
-              <img src={`${profile_path}`} alt={name} />
+              <img
+                src={`https://image.tmdb.org/t/p/w500${profile_path}`}
+                alt={name}
+              />
               <p>Character: {character}</p>
             </li>
           ))}

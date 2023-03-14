@@ -1,18 +1,43 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { getReviews } from 'services/themoviedb-API';
 
 export const Reviews = () => {
+  const { movieId } = useParams();
+  const [reviews, setReviews] = useState([]);
+
   useEffect(() => {
     const fetchReviewsMovie = async movieId => {
       try {
         const reviewsMovie = await getReviews(movieId);
-        console.log(reviewsMovie);
+        const reviews = reviewsMovie.map(({ author, content, created_at }) => ({
+          author,
+          content,
+          created_at,
+        }));
+
+        console.log(reviews);
+        setReviews(reviews);
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchReviewsMovie(739405);
-  }, []);
-  return <div>Reviews</div>;
+    fetchReviewsMovie(movieId);
+  }, [movieId]);
+
+  console.log(reviews);
+  return (
+    <div>
+      Reviews
+      {reviews &&
+        reviews.map(({ author, content, created_at }) => (
+          <li key={author}>
+            <span>Author: {author}</span>
+            <p>{content}</p>
+            <p>{created_at}</p>
+          </li>
+        ))}
+    </div>
+  );
 };
