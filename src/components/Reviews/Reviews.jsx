@@ -16,7 +16,6 @@ export const Reviews = () => {
           created_at,
         }));
 
-        console.log(reviews);
         setReviews(reviews);
       } catch (error) {
         console.log(error);
@@ -26,7 +25,6 @@ export const Reviews = () => {
     fetchReviewsMovie(movieId);
   }, [movieId]);
 
-  console.log(reviews);
   return (
     <div>
       Reviews

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { getDetails } from 'services/themoviedb-API';
 
 export const MovieDetails = () => {
@@ -19,12 +19,9 @@ export const MovieDetails = () => {
     fetchDetailsMovie(movieId);
   }, [movieId]);
 
-  console.log(movie);
-
   const { poster_path, title, release_date, popularity, overview, genres } =
     movie;
 
-  console.log(genres);
   return (
     <div>
       <Link to="/">⬅️ go back</Link>
@@ -49,13 +46,14 @@ export const MovieDetails = () => {
       <h2>Additional information</h2>
       <ul>
         <li>
-          <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+          <Link to={`cast`}>Cast</Link>
         </li>
         <li>
-          <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+          <Link to={`reviews`}>Reviews</Link>
         </li>
       </ul>
       <hr />
+      <Outlet />
     </div>
   );
 };
