@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useParams } from 'react-router-dom';
 import { getDetails } from 'services/themoviedb-API';
+import { ImagePoster } from './MovieDetails.styled';
+import undefinedImage from '../../images/undefined.webp';
 
 export const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
+    const abortController = new AbortController();
+
     const fetchDetailsMovie = async movieId => {
       try {
-        const findMovie = await getDetails(movieId);
+        const findMovie = await getDetails(movieId, abortController);
         setMovie(findMovie);
       } catch (error) {
         console.log(error);
@@ -17,6 +21,10 @@ export const MovieDetails = () => {
     };
 
     fetchDetailsMovie(movieId);
+
+    return () => {
+      abortController.abort();
+    };
   }, [movieId]);
 
   const { poster_path, title, release_date, popularity, overview, genres } =
@@ -27,8 +35,12 @@ export const MovieDetails = () => {
       <Link to="/">⬅️ go back</Link>
       <hr />
       <div>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+        <ImagePoster
+          src={
+            poster_path
+              ? `https://image.tmdb.org/t/p/w500${poster_path}`
+              : undefinedImage
+          }
           alt={title}
         />
         <p>

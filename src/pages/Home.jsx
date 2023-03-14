@@ -6,9 +6,11 @@ export const Home = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
+    const abortController = new AbortController();
+
     const fetchTrendingToday = async () => {
       try {
-        const trendingMovies = await getTrendingToday();
+        const trendingMovies = await getTrendingToday(abortController);
         const movies = trendingMovies.map(({ id, title }) => ({ id, title }));
         setMovies(movies);
       } catch (error) {
@@ -17,6 +19,10 @@ export const Home = () => {
     };
 
     fetchTrendingToday();
+
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   return (

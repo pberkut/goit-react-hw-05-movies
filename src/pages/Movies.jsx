@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { getSearch } from 'services/themoviedb-API';
 
@@ -6,9 +6,17 @@ export const Movies = () => {
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
 
+  const abortController = useRef();
+
   const fetchSearchMovie = async query => {
+    if (abortController.current) {
+      abortController.current.abort();
+    }
+
+    abortController.current = new AbortController();
+
     try {
-      const searchMovies = await getSearch(query);
+      const searchMovies = await getSearch(query, abortController.current);
       const movies = searchMovies.map(({ id, title }) => ({ id, title }));
       setMovies(movies);
     } catch (error) {
@@ -24,7 +32,6 @@ export const Movies = () => {
 
   return (
     <div>
-      <hr />
       <Link to="/">⬅️ go back</Link>
       <hr />
       <form onSubmit={handleSubmit}>
@@ -36,7 +43,7 @@ export const Movies = () => {
         />
         <button type="submit">Search</button>
       </form>
-      {movies.length > 0 && (
+      {
         <ul>
           {movies.map(({ id, title }) => (
             <li key={id}>
@@ -44,7 +51,7 @@ export const Movies = () => {
             </li>
           ))}
         </ul>
-      )}
+      }
     </div>
   );
 };
