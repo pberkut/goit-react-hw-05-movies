@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useParams } from 'react-router-dom';
 import { getDetails } from 'services/themoviedb-API';
-import { ImagePoster } from './MovieDetails.styled';
+import { ImagePoster, Wrapper } from './MovieDetails.styled';
 import placeholderImage from '../../images/placeholder-movie.webp';
 
 const BASE_URL_IMAGE = 'https://image.tmdb.org/t/p/w500';
@@ -36,24 +36,30 @@ export const MovieDetails = () => {
     <div>
       <Link to="/">⬅️ go back</Link>;
       <hr />
-      <div>
-        <ImagePoster
-          src={
-            poster_path ? `${BASE_URL_IMAGE + poster_path}` : placeholderImage
-          }
-          alt={title}
-        />
-        <p>
-          <span>{title}</span>
-          <span>({Number.parseInt(release_date)})</span>
-        </p>
-        <p>User score (popularity): {Number.parseInt(popularity).toFixed(1)}</p>
-        <p>Overview: {overview}</p>
-        <p>
-          Genres:{' '}
-          {genres ? genres.map(({ name }) => name).join(', ') : 'No Genres'}.
-        </p>
-      </div>
+      <Wrapper>
+        <div>
+          <ImagePoster
+            src={
+              poster_path ? `${BASE_URL_IMAGE + poster_path}` : placeholderImage
+            }
+            alt={title}
+          />
+        </div>
+        <div>
+          <p>
+            <span>{title}</span>
+            <span>({Number.parseInt(release_date)})</span>
+          </p>
+          <p>
+            User score (popularity): {Number.parseInt(popularity).toFixed(1)}
+          </p>
+          <p>Overview: {overview}</p>
+          <p>
+            Genres:{' '}
+            {genres ? genres.map(({ name }) => name).join(', ') : 'No Genres'}.
+          </p>
+        </div>
+      </Wrapper>
       <hr />
       <h2>Additional information</h2>
       <ul>
