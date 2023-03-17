@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getSearch } from 'services/themoviedb-API';
-import MoviesList from 'components/MoviesList/MoviesList';
+import MoviesList from 'components/MoviesList';
 import { nanoid } from 'nanoid';
 
-export const Movies = () => {
+const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
@@ -65,3 +65,5 @@ export const Movies = () => {
     </div>
   );
 };
+
+export default Movies;

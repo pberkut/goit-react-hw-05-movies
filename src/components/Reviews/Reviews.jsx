@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getReviews } from 'services/themoviedb-API';
 import dateFormat from 'dateformat';
 
-export const Reviews = () => {
+const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
 
@@ -49,3 +49,5 @@ export const Reviews = () => {
     </div>
   );
 };
+
+export default Reviews;

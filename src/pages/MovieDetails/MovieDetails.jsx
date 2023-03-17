@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { getDetails } from 'services/themoviedb-API';
 import { ImagePoster, Wrapper } from './MovieDetails.styled';
@@ -6,7 +6,7 @@ import placeholderImage from '../../images/placeholder-movie.webp';
 
 const BASE_URL_IMAGE = 'https://image.tmdb.org/t/p/w500';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const location = useLocation();
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
@@ -28,11 +28,11 @@ export const MovieDetails = () => {
     fetchDetailsMovie(movieId);
 
     return () => {
-      // abortController.abort();
+      abortController.abort();
     };
   }, [movieId]);
 
-  const { poster_path, title, release_date, popularity, overview, genres } =
+  const { poster_path, title, release_date, vote_average, overview, genres } =
     movie;
 
   return (
@@ -53,9 +53,7 @@ export const MovieDetails = () => {
             <span>{title}</span>
             <span>({Number.parseInt(release_date)})</span>
           </p>
-          <p>
-            User score (popularity): {Number.parseInt(popularity).toFixed(1)}
-          </p>
+          <p>User score: {Math.round(vote_average * 10)}%</p>
           <p>Overview: {overview}</p>
           <p>
             Genres:{' '}
@@ -74,7 +72,11 @@ export const MovieDetails = () => {
         </li>
       </ul>
       <hr />
-      <Outlet />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
+
+export default MovieDetails;

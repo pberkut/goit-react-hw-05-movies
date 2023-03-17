@@ -6,7 +6,7 @@ import placeholderImage from '../../images/placeholder-cast.webp';
 
 const BASE_URL_IMAGE = 'https://image.tmdb.org/t/p/w500';
 
-export const Cast = () => {
+const Cast = () => {
   const [casts, setCasts] = useState([]);
 
   const { movieId } = useParams();
@@ -61,3 +61,5 @@ export const Cast = () => {
     </div>
   );
 };
+
+export default Cast;
