@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { getDetails } from 'services/themoviedb-API';
 import { ImagePoster, Wrapper } from './MovieDetails.styled';
 import placeholderImage from '../../images/placeholder-movie.webp';
@@ -7,8 +7,11 @@ import placeholderImage from '../../images/placeholder-movie.webp';
 const BASE_URL_IMAGE = 'https://image.tmdb.org/t/p/w500';
 
 export const MovieDetails = () => {
+  const location = useLocation();
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
+
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -34,7 +37,7 @@ export const MovieDetails = () => {
 
   return (
     <div>
-      <Link to="/">⬅️ go back</Link>;
+      <Link to={backLinkLocationRef.current}>⬅️ go back</Link>
       <hr />
       <Wrapper>
         <div>

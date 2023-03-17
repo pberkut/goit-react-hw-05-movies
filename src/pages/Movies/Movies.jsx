@@ -7,8 +7,8 @@ import { nanoid } from 'nanoid';
 export const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get('query');
-  const [value, setValue] = useState(query ?? '');
+  const query = searchParams.get('query') ?? '';
+  const [value, setValue] = useState(query);
   const [reqId, setReqId] = useState(null);
 
   useEffect(() => {
@@ -35,13 +35,16 @@ export const Movies = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (e.target.query.value === '') {
+
+    const queryValue = e.target.query.value.trim();
+
+    if (queryValue === '') {
       setSearchParams({});
       setMovies([]);
       return;
     }
 
-    setSearchParams({ query: e.target.query.value });
+    setSearchParams({ query: queryValue });
     setReqId(nanoid(1));
   };
 

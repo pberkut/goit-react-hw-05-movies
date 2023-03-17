@@ -21,7 +21,7 @@ export const Home = () => {
     fetchTrendingToday();
 
     return () => {
-      // abortController.abort();
+      abortController.abort();
     };
   }, []);
 
