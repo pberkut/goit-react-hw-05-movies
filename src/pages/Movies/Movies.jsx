@@ -2,25 +2,23 @@ import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getSearch } from 'services/themoviedb-API';
 import MoviesList from 'components/MoviesList/MoviesList';
+import { nanoid } from 'nanoid';
 
 export const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
   const [value, setValue] = useState(query ?? '');
+  const [reqId, setReqId] = useState(null);
 
   useEffect(() => {
+    if (!query) return;
+
     const abortController = new AbortController();
 
     const fetchSearchMovie = async query => {
-      if (abortController.current) {
-        abortController.current.abort();
-      }
-
-      abortController.current = new AbortController();
-
       try {
-        const searchMovies = await getSearch(query, abortController.current);
+        const searchMovies = await getSearch(query, abortController);
         const movies = searchMovies.map(({ id, title }) => ({ id, title }));
         setMovies(movies);
       } catch (error) {
@@ -33,12 +31,18 @@ export const Movies = () => {
     return () => {
       abortController.abort();
     };
-  }, [query]);
+  }, [query, reqId]);
 
   const handleSubmit = e => {
     e.preventDefault();
-    const nextParams = query !== `` ? { query: e.target.query.value } : {};
-    setSearchParams(nextParams);
+    if (e.target.query.value === '') {
+      setSearchParams({});
+      setMovies([]);
+      return;
+    }
+
+    setSearchParams({ query: e.target.query.value });
+    setReqId(nanoid(1));
   };
 
   return (
@@ -50,7 +54,7 @@ export const Movies = () => {
           type="text"
           name="query"
           value={value}
-          onChange={e => setValue(e.target.value)}
+          onChange={e => setValue(() => e.target.value.trimStart())}
         />
         <button type="submit">Search</button>
       </form>
