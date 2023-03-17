@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { Link, Outlet, useParams } from 'react-router-dom';
 import { getDetails } from 'services/themoviedb-API';
 import { ImagePoster } from './MovieDetails.styled';
-import undefinedImage from '../../images/undefined.webp';
+import placeholderImage from '../../images/placeholder-movie.webp';
+
+const BASE_URL_IMAGE = 'https://image.tmdb.org/t/p/w500';
 
 export const MovieDetails = () => {
   const { movieId } = useParams();
@@ -23,7 +25,7 @@ export const MovieDetails = () => {
     fetchDetailsMovie(movieId);
 
     return () => {
-      abortController.abort();
+      // abortController.abort();
     };
   }, [movieId]);
 
@@ -32,14 +34,12 @@ export const MovieDetails = () => {
 
   return (
     <div>
-      <Link to="/">⬅️ go back</Link>
+      <Link to="/">⬅️ go back</Link>;
       <hr />
       <div>
         <ImagePoster
           src={
-            poster_path
-              ? `https://image.tmdb.org/t/p/w500${poster_path}`
-              : undefinedImage
+            poster_path ? `${BASE_URL_IMAGE + poster_path}` : placeholderImage
           }
           alt={title}
         />

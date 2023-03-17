@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { getSearch } from 'services/themoviedb-API';
+import MoviesList from 'components/MoviesList/MoviesList';
 
 export const Movies = () => {
   const [query, setQuery] = useState('');
@@ -27,12 +28,12 @@ export const Movies = () => {
   const handleSubmit = e => {
     e.preventDefault();
     fetchSearchMovie(query);
-    setQuery('');
+    // setQuery('');
   };
 
   return (
     <div>
-      <Link to="/">⬅️ go back</Link>
+      <Link to="/">⬅️ go back</Link>;
       <hr />
       <form onSubmit={handleSubmit}>
         <input
@@ -43,15 +44,7 @@ export const Movies = () => {
         />
         <button type="submit">Search</button>
       </form>
-      {
-        <ul>
-          {movies.map(({ id, title }) => (
-            <li key={id}>
-              <Link to={`/movies/${id}`}>{title}</Link>
-            </li>
-          ))}
-        </ul>
-      }
+      {<MoviesList movies={movies} />}
     </div>
   );
 };

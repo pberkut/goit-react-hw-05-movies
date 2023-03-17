@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCredits } from 'services/themoviedb-API';
 import { ImageCast } from './Cast.styled.js';
-import undefinedImage from '../../images/undefined.webp';
+import placeholderImage from '../../images/placeholder-cast.webp';
+
+const BASE_URL_IMAGE = 'https://image.tmdb.org/t/p/w500';
 
 export const Cast = () => {
   const [casts, setCasts] = useState([]);
@@ -46,8 +48,8 @@ export const Cast = () => {
             <ImageCast
               src={
                 profile_path
-                  ? `https://image.tmdb.org/t/p/w500${profile_path}`
-                  : undefinedImage
+                  ? `${BASE_URL_IMAGE + profile_path}`
+                  : placeholderImage
               }
               alt={name}
             />

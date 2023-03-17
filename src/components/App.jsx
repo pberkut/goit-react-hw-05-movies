@@ -1,10 +1,11 @@
-import { Home } from 'pages/Home';
-import { Movies } from 'pages/Movies';
-import { MovieDetails } from './MovieDetails';
+import { Home } from 'pages/Home/Home';
+import { Movies } from 'pages/Movies/Movies';
+import { MovieDetails } from '../pages/MovieDetails';
 import { Route, Routes } from 'react-router-dom';
 import { Cast } from './Cast';
 import { Reviews } from './Reviews';
 import { Layout } from './Layout';
+import { NotFoundPage } from 'pages/NotFoundPage';
 
 export const App = () => {
   return (
@@ -16,7 +17,7 @@ export const App = () => {
           <Route path="cast" element={<Cast />} />
           <Route path="reviews" element={<Reviews />} />
         </Route>
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

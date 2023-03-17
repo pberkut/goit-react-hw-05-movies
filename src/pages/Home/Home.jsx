@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { getTrendingToday } from '../services/themoviedb-API';
+import { getTrendingToday } from '../../services/themoviedb-API';
+import MoviesList from '../../components/MoviesList/MoviesList';
 
 export const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -21,17 +21,14 @@ export const Home = () => {
     fetchTrendingToday();
 
     return () => {
-      abortController.abort();
+      // abortController.abort();
     };
   }, []);
 
   return (
-    <ul>
-      {movies.map(({ id, title }) => (
-        <li key={id}>
-          <Link to={`movies/${id}`}>{title}</Link>
-        </li>
-      ))}
-    </ul>
+    <>
+      <h1>Trending movies today</h1>
+      <MoviesList movies={movies} />
+    </>
   );
 };
