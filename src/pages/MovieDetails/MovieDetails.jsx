@@ -1,7 +1,13 @@
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { getDetails } from 'services/themoviedb-API';
-import { ImagePoster, Wrapper } from './MovieDetails.styled';
+import {
+  ImagePoster,
+  MoviesOptionItem,
+  MoviesOptionList,
+  Wrapper,
+  NavLink,
+} from './MovieDetails.styled';
 import placeholderImage from '../../images/placeholder-movie.webp';
 
 const BASE_URL_IMAGE = 'https://image.tmdb.org/t/p/w500';
@@ -63,14 +69,14 @@ const MovieDetails = () => {
       </Wrapper>
       <hr />
       <h2>Additional information</h2>
-      <ul>
-        <li>
-          <Link to={`cast`}>Cast</Link>
-        </li>
-        <li>
-          <Link to={`reviews`}>Reviews</Link>
-        </li>
-      </ul>
+      <MoviesOptionList>
+        <MoviesOptionItem>
+          <NavLink to={`cast`}>Cast</NavLink>
+        </MoviesOptionItem>
+        <MoviesOptionItem>
+          <NavLink to={`reviews`}>Reviews</NavLink>
+        </MoviesOptionItem>
+      </MoviesOptionList>
       <hr />
       <Suspense fallback={<p>Loading...</p>}>
         <Outlet />
