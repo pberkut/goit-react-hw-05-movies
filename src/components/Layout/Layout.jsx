@@ -1,3 +1,4 @@
+import Footer from 'components/Footer';
 import Navigation from 'components/Navigation';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
@@ -14,7 +15,7 @@ const Layout = () => {
           <Outlet />
         </Suspense>
       </main>
-      <footer>©️ 2023</footer>
+      <Footer />
     </>
   );
 };
