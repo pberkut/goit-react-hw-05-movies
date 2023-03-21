@@ -2,9 +2,13 @@ import { Nav, NavLink } from './Navigation.styled';
 
 const Navigation = () => {
   return (
-    <Nav>
-      <NavLink to="/">Home </NavLink>
-      <NavLink to="/movies">Movies</NavLink>
+    <Nav className="nav-list">
+      <NavLink to="/" className="nav-item">
+        Home{' '}
+      </NavLink>
+      <NavLink to="/movies" className="nav-item">
+        Movies
+      </NavLink>
     </Nav>
   );
 };
