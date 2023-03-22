@@ -11,7 +11,15 @@ const Home = () => {
     const fetchTrendingToday = async () => {
       try {
         const trendingMovies = await getTrendingToday(abortController);
-        const movies = trendingMovies.map(({ id, title }) => ({ id, title }));
+        const movies = trendingMovies.map(
+          ({ id, title, poster_path, release_date, vote_average }) => ({
+            id,
+            title,
+            poster_path,
+            release_date,
+            vote_average,
+          })
+        );
         setMovies(movies);
       } catch (error) {
         console.log(error);
