@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { getSearch } from 'services/themoviedb-API';
 import MoviesList from 'components/MoviesList';
 import { nanoid } from 'nanoid';
+import handleResponse from 'utils/handleResponse';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -19,7 +20,7 @@ const Movies = () => {
     const fetchSearchMovie = async query => {
       try {
         const searchMovies = await getSearch(query, abortController);
-        const movies = searchMovies.map(({ id, title }) => ({ id, title }));
+        const movies = handleResponse(searchMovies);
         setMovies(movies);
       } catch (error) {
         console.log(error);

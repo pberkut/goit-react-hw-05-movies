@@ -21,23 +21,39 @@ const MovieItemStyled = styled.li`
   position: relative;
   overflow: hidden;
 
-  transition: transform 200ms linear;
+  transition: transform 100ms linear;
 
   &:hover,
   &:focus {
-    transform: scale(1.06);
+    transform: scale(1.05);
   }
 `;
 
 const ImageMovie = styled.img`
   display: block;
   width: 250px;
-  /* object-fit: cover; */
 `;
 
 const TitleMovie = styled.p`
   width: 250px;
   text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: 700;
 `;
 
-export { ImageMovie, MoviesListStyled, TitleMovie, MovieItemStyled, Link };
+const MovieYears = styled.p`
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+`;
+
+export {
+  ImageMovie,
+  MoviesListStyled,
+  TitleMovie,
+  MovieItemStyled,
+  Link,
+  MovieYears,
+};

@@ -1,7 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCredits } from 'services/themoviedb-API';
-import { ImageCast } from './Cast.styled.js';
+import {
+  CastCharacter,
+  CastItem,
+  CastList,
+  CastName,
+  ImageCast,
+  Title,
+} from './Cast.styled.js';
 import placeholderImage from '../../images/placeholder-cast.webp';
 
 const BASE_URL_IMAGE = 'https://image.tmdb.org/t/p/w500';
@@ -39,11 +46,11 @@ const Cast = () => {
 
   return (
     <div>
-      MovieCredits - Cast
-      <ul>
+      <Title>MovieCredits - Cast</Title>
+      <CastList>
         {casts.map(({ id, name, character, profile_path }) => (
-          <li key={id}>
-            <p>Name: {name}</p>
+          <CastItem key={id}>
+            <CastName>{name}</CastName>
 
             <ImageCast
               src={
@@ -54,10 +61,10 @@ const Cast = () => {
               alt={name}
             />
 
-            <p>Character: {character}</p>
-          </li>
+            <CastCharacter>Character: {character}</CastCharacter>
+          </CastItem>
         ))}
-      </ul>
+      </CastList>
     </div>
   );
 };

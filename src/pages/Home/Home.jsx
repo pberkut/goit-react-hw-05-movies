@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getTrendingToday } from '../../services/themoviedb-API';
 import MoviesList from '../../components/MoviesList';
+import handleResponse from 'utils/handleResponse';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -11,15 +12,7 @@ const Home = () => {
     const fetchTrendingToday = async () => {
       try {
         const trendingMovies = await getTrendingToday(abortController);
-        const movies = trendingMovies.map(
-          ({ id, title, poster_path, release_date, vote_average }) => ({
-            id,
-            title,
-            poster_path,
-            release_date,
-            vote_average,
-          })
-        );
+        const movies = handleResponse(trendingMovies);
         setMovies(movies);
       } catch (error) {
         console.log(error);

@@ -6,7 +6,9 @@ import {
   MoviesListStyled,
   TitleMovie,
   Link,
+  MovieYears,
 } from './MoviesList.styled';
+import placeholderPoster from '../../images/placeholder-movie.webp';
 
 const BASE_URL_IMAGE = 'https://image.tmdb.org/t/p/w500';
 
@@ -15,12 +17,19 @@ const MoviesList = ({ movies }) => {
 
   return (
     <MoviesListStyled>
-      {movies.map(({ id, title, poster_path, release_date, vote_average }) => (
+      {movies.map(({ id, title, poster_path, release_date }) => (
         <MovieItemStyled key={id}>
           <Link to={`/movies/${id}`} state={{ from: location }}>
-            <ImageMovie src={`${BASE_URL_IMAGE}${poster_path}`} alt={title} />
-            <TitleMovie>{title}</TitleMovie>
-            <p>({Number.parseInt(release_date)})</p>
+            <ImageMovie
+              src={
+                poster_path
+                  ? `${BASE_URL_IMAGE}${poster_path}`
+                  : placeholderPoster
+              }
+              alt={title}
+            />
+            <TitleMovie className="title">{title}</TitleMovie>
+            <MovieYears>{Number.parseInt(release_date)}</MovieYears>
           </Link>
         </MovieItemStyled>
       ))}

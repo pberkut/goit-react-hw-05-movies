@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviews } from 'services/themoviedb-API';
 import dateFormat from 'dateformat';
+import { Title } from './Reviews.styled';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -34,7 +35,7 @@ const Reviews = () => {
 
   return (
     <div>
-      Reviews
+      <Title> Reviews</Title>
       {reviews.length > 0 ? (
         reviews.map(({ author, content, created_at }) => (
           <li key={author}>

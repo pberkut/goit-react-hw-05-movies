@@ -8,6 +8,13 @@ export const NavLink = styled(NavLinkStyled)`
   padding: 5px;
   border-radius: 10px;
 
+  transition: transform 100ms linear;
+
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+  }
+
   &.active {
     background-color: tomato;
     color: black;
